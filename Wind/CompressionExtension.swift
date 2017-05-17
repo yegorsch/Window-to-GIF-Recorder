@@ -13,7 +13,7 @@ import ImageIO
 extension CGImage {
 
 
-    func resizeImageTwo(level: Float, scale:Float) ->CGImage{
+    func resizeImage(level: Float, scale:Float) ->CGImage{
         let bitmapRep = NSBitmapImageRep(cgImage: self)
         let jpegData = bitmapRep.representation(using: .JPEG, properties: [NSImageCompressionFactor : level])
         let data = CGImageSourceCreateWithData(jpegData! as CFData, nil)

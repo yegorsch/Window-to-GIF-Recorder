@@ -31,7 +31,6 @@ class GifMaker{
     
     func generateGif(){
 
-        DispatchQueue.global().async {
         if (self.images?.count)! > 0 {
 
             guard let destinationGIF = CGImageDestinationCreateWithURL(self.path, kUTTypeGIF, self.images.count, nil) else {
@@ -42,18 +41,18 @@ class GifMaker{
             let properties = [
                 (kCGImagePropertyGIFDictionary as String): [(kCGImagePropertyGIFDelayTime as String): 1 / self.fps]
             ]
+            DispatchQueue.global().async {
             autoreleasepool(invoking: {
             for img in self.images {
                 // Add the frame to the GIF image
                     // code
-                CGImageDestinationAddImage(destinationGIF,  img.resizeImageTwo(level: self.quality, scale: self.scale), properties as CFDictionary)
+                CGImageDestinationAddImage(destinationGIF,  img.resizeImage(level: self.quality, scale: self.scale), properties as CFDictionary)
             }
             })
-        
+            }
             // Write the GIF file to disk
             CGImageDestinationFinalize(destinationGIF)
         
-        }
 
             
         }
