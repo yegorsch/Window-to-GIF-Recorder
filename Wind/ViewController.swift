@@ -103,7 +103,6 @@ class ViewController: NSViewController {
         let windowId = windowDict[windowSelectorView.titleOfSelectedItem!  ]
         let image = CGWindowListCreateImage(CGRect.null, CGWindowListOption.optionIncludingWindow,  windowId! ,CGWindowImageOption.boundsIgnoreFraming)
         self.imageView.image = NSImage(cgImage: image!, size: self.imageView.frame.size)
-       
     }
     
     @IBAction func chooseDirectoryButtonPressed(_ sender: NSButton) {
@@ -146,7 +145,7 @@ class ViewController: NSViewController {
     }
     private func startCapturing(){
         // Checking fps
-        var fps = Double(self.fpsTextField.stringValue) ?? 10
+        var fps = Float(self.fpsTextField.stringValue) ?? 10
         if  fps == 0 {
             let alert = NSAlert()
             alert.addButton(withTitle: "OK")
@@ -167,7 +166,7 @@ class ViewController: NSViewController {
         }
         let pathLocal = NSURL(string: self.path.absoluteString! + "/" + name + ".gif")!
         gifMaker = GifMaker(quality: self.imageQuality, scale: self.imageScale, fps: fps, path: pathLocal)
-        capturingTimer = Timer.scheduledTimer(withTimeInterval: 1 / fps , repeats: true, block: {
+        capturingTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(1 / fps) , repeats: true, block: {
             timer in
         let image = CGWindowListCreateImage(CGRect.null, CGWindowListOption.optionIncludingWindow,      self.selectedWindowId ,CGWindowImageOption.boundsIgnoreFraming)
             self.gifMaker.addImageIntoGif(image: image!)
@@ -181,11 +180,6 @@ class ViewController: NSViewController {
         gifMaker.generateGif()
     }
     
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
 
 
 }
