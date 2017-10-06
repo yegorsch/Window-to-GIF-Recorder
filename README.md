@@ -8,5 +8,3 @@ You can download the app from my [Dropbox](https://www.dropbox.com/s/4olykfd4qbt
 If you find any bugs, feel free to create an issue.
 
 If you find it useful, you can give me a cup of coffee :) 
-
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/YegorC)
