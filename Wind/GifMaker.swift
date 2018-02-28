@@ -9,13 +9,20 @@
 import Foundation
 import ImageIO
 import AppKit
+
 class GifMaker{
+
     private var images:[CGImage]!
     private var quality:Float
     private var scale:Float
     private var fps:Float
     private var path:NSURL
     private var processingQueue:DispatchQueue!
+    private var dispatchGroup:DispatchGroup!
+    private var destinationGIF:CGImageDestination!
+    private let gifProperties:[String:Any]!
+    private var dictInUse:CFDictionary!
+    typealias SuccessBlock = (Bool)->()
     
     init(quality: Float,scale:Float, fps:Float, path:NSURL) {
         self.quality = quality / 100
@@ -24,34 +31,29 @@ class GifMaker{
         self.path = path
         self.images = [CGImage]()
         processingQueue = DispatchQueue(label: "processingQ", qos: .background, attributes: .concurrent, autoreleaseFrequency: .workItem, target: self.processingQueue)
+        self.dispatchGroup = DispatchGroup()
+        gifProperties = [kCGImagePropertyGIFDictionary as String: [kCGImagePropertyGIFDelayTime as String:self.fps, kCGImagePropertyGIFHasGlobalColorMap as String: false ]]
+        self.dictInUse = gifProperties as CFDictionary
     }
+    
     func addImageIntoGif(image:CGImage){
-        processingQueue.async {
+        self.processingQueue.async(group: self.dispatchGroup, qos: .background, flags: .enforceQoS, execute: {
             self.images.append(image.resizeImage(level: self.quality, scale: self.scale))
-        }
+        })
     }
     
     
-    func generateGif(){
-        
-        if (self.images?.count)! > 0 {
-            guard let destinationGIF = CGImageDestinationCreateWithURL(self.path, kUTTypeGIF, self.images.count, nil) else {
-                print("lil")
-                return
+    func generateGif(success: @escaping SuccessBlock){
+        destinationGIF = CGImageDestinationCreateWithURL(self.path, kUTTypeGIF, self.images.count, nil)
+        self.processingQueue.async(group: self.dispatchGroup, qos: .background, flags: .enforceQoS, execute: {
+            for image in self.images{
+                CGImageDestinationAddImage(self.destinationGIF, image, self.dictInUse)
             }
-            
-            let gifProperties:[String:Any] = [kCGImagePropertyGIFDictionary as String: [kCGImagePropertyGIFDelayTime as String:self.fps ], kCGImagePropertyGIFHasGlobalColorMap as String : false]
-            DispatchQueue.global(qos: .background).async {
-                for img in self.images {
-                    // Add the frame to the GIF image
-                    CGImageDestinationAddImage(destinationGIF,  img, gifProperties as CFDictionary)
-                }
-                // Write the GIF file to disk
-                if CGImageDestinationFinalize(destinationGIF){
-                    print("HI")
-                }
-            }
-        }
+        })
+        self.dispatchGroup.notify(queue: self.processingQueue, execute: {
+           success(CGImageDestinationFinalize(self.destinationGIF))
+            self.destinationGIF = nil
+        })
     }
     
     
