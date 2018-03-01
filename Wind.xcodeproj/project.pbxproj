@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7415DEF02047C52900CF9AE1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7415DEEF2047C52900CF9AE1 /* .gitignore */; };
 		7422726F204725E9005F9C50 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7422726E204725E9005F9C50 /* README.md */; };
 		74DF24A71EBF761E002DFF53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DF24A61EBF761E002DFF53 /* AppDelegate.swift */; };
 		74DF24A91EBF761E002DFF53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DF24A81EBF761E002DFF53 /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7415DEEF2047C52900CF9AE1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7422726E204725E9005F9C50 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		74DF24A31EBF761E002DFF53 /* Wind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wind.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74DF24A61EBF761E002DFF53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +44,7 @@
 		74DF249A1EBF761E002DFF53 = {
 			isa = PBXGroup;
 			children = (
+				7415DEEF2047C52900CF9AE1 /* .gitignore */,
 				7422726E204725E9005F9C50 /* README.md */,
 				74DF24A51EBF761E002DFF53 /* Wind */,
 				74DF24A41EBF761E002DFF53 /* Products */,
@@ -130,6 +133,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7415DEF02047C52900CF9AE1 /* .gitignore in Resources */,
 				7422726F204725E9005F9C50 /* README.md in Resources */,
 				74DF24AB1EBF761F002DFF53 /* Assets.xcassets in Resources */,
 				74DF24AE1EBF761F002DFF53 /* Main.storyboard in Resources */,
