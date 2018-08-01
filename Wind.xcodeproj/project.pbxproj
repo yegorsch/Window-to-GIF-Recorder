@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7415DEF02047C52900CF9AE1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7415DEEF2047C52900CF9AE1 /* .gitignore */; };
 		7422726F204725E9005F9C50 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7422726E204725E9005F9C50 /* README.md */; };
+		749916B220542E3200C9DF34 /* GifProcessingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749916B120542E3200C9DF34 /* GifProcessingOperation.swift */; };
 		74DF24A71EBF761E002DFF53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DF24A61EBF761E002DFF53 /* AppDelegate.swift */; };
 		74DF24A91EBF761E002DFF53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DF24A81EBF761E002DFF53 /* ViewController.swift */; };
 		74DF24AB1EBF761F002DFF53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74DF24AA1EBF761F002DFF53 /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		7415DEEF2047C52900CF9AE1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7422726E204725E9005F9C50 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		749916B120542E3200C9DF34 /* GifProcessingOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifProcessingOperation.swift; sourceTree = "<group>"; };
 		74DF24A31EBF761E002DFF53 /* Wind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wind.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74DF24A61EBF761E002DFF53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74DF24A81EBF761E002DFF53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				74DF24A61EBF761E002DFF53 /* AppDelegate.swift */,
 				74DF24A81EBF761E002DFF53 /* ViewController.swift */,
 				74FF75941EC2097B008D3D01 /* GifMaker.swift */,
+				749916B120542E3200C9DF34 /* GifProcessingOperation.swift */,
 				74FF75961EC388C4008D3D01 /* CompressionExtension.swift */,
 				74DF24AA1EBF761F002DFF53 /* Assets.xcassets */,
 				74DF24AC1EBF761F002DFF53 /* Main.storyboard */,
@@ -83,6 +86,8 @@
 				74DF249F1EBF761E002DFF53 /* Sources */,
 				74DF24A01EBF761E002DFF53 /* Frameworks */,
 				74DF24A11EBF761E002DFF53 /* Resources */,
+				7415DEF12047C64F00CF9AE1 /* ShellScript */,
+				7415DEF22047C78A00CF9AE1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -106,6 +111,7 @@
 					74DF24A21EBF761E002DFF53 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = N2BKJ2AF66;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -142,12 +148,42 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7415DEF12047C64F00CF9AE1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+		7415DEF22047C78A00CF9AE1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "swiftformat .";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		74DF249F1EBF761E002DFF53 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				74FF75971EC388C4008D3D01 /* CompressionExtension.swift in Sources */,
+				749916B220542E3200C9DF34 /* GifProcessingOperation.swift in Sources */,
 				74DF24A91EBF761E002DFF53 /* ViewController.swift in Sources */,
 				74FF75951EC2097B008D3D01 /* GifMaker.swift in Sources */,
 				74DF24A71EBF761E002DFF53 /* AppDelegate.swift in Sources */,
@@ -270,7 +306,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = yegorsMac.Wind;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -284,7 +321,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = yegorsMac.Wind;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

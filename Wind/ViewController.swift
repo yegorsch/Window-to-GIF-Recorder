@@ -8,114 +8,125 @@
 
 import Cocoa
 
-
 class ViewController: NSViewController {
-
-    @IBOutlet weak var qualityLevelLabel: NSTextField!
-    @IBOutlet weak var statusImageView: NSImageView!
-    @IBOutlet weak var imageView: NSImageView!
-    @IBOutlet weak var windowSelectorView: NSPopUpButton!
-    @IBOutlet weak var timerLabel: NSTextField!
-    @IBOutlet weak var directoryTextField: NSTextField!
-    @IBOutlet weak var nameTextField: NSTextField!
-
-    @IBOutlet weak var fpsTextField: NSTextField!
+    @IBOutlet var qualityLevelLabel: NSTextField!
+    @IBOutlet var statusImageView: NSImageView!
+    @IBOutlet var imageView: NSImageView!
+    @IBOutlet var windowSelectorView: NSPopUpButton!
+    @IBOutlet var timerLabel: NSTextField!
+    @IBOutlet var directoryTextField: NSTextField!
+    @IBOutlet var nameTextField: NSTextField!
+    @IBOutlet var fpsTextField: NSTextField!
+    @IBOutlet var imageScaleLabel: NSTextField!
 
     private var windowDict = [String: UInt32]()
-    private var path: NSURL = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]) { didSet { self.directoryTextField.stringValue = self.path.path ?? "Directory" } }
     private var isRecording: Bool = false
     private var timer: Timer!
-    private var counter = 0 { didSet {
-        if (counter < 60) {
-            timerLabel.stringValue = "\(counter)" + " sec"
-        } else {
-            timerLabel.stringValue = "\(counter / 60):" + "\(counter % 60)"
-        }
-    } }
     private var capturingTimer: Timer!
     private var selectedWindowId: UInt32!
     private var gifMaker: GifMaker!
-    private var imageQuality: Float = 100.0 { didSet {
-        if imageQuality == 100.0 {
-            qualityLevelLabel.stringValue = "Best"
-        } else if imageQuality == 75.0 {
-            qualityLevelLabel.stringValue = "High"
-        } else if imageQuality == 50.0 {
-            qualityLevelLabel.stringValue = "Medium"
-        } else if imageQuality == 25.0 {
-            qualityLevelLabel.stringValue = "Low"
-        } else if imageQuality == 0 {
-            qualityLevelLabel.stringValue = "Lowest"
+    private var path: NSURL = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]) {
+        didSet {
+            self.directoryTextField.stringValue = self.path.path ?? "Directory"
         }
     }
-    }
-    @IBOutlet weak var imageScaleLabel: NSTextField!
-    private var imageScale: Float = 100 { didSet {
-        self.imageScaleLabel.stringValue = String(imageScale.rounded()) + "%"
-    } }
-    @IBOutlet weak var statusLabel: NSTextField!
 
+    private var imageQuality: Float = 100.0 {
+        didSet {
+            if imageQuality == 100.0 {
+                qualityLevelLabel.stringValue = "Best"
+            } else if imageQuality == 75.0 {
+                qualityLevelLabel.stringValue = "High"
+            } else if imageQuality == 50.0 {
+                qualityLevelLabel.stringValue = "Medium"
+            } else if imageQuality == 25.0 {
+                qualityLevelLabel.stringValue = "Low"
+            } else if imageQuality == 0 {
+                qualityLevelLabel.stringValue = "Lowest"
+            }
+        }
+    }
+
+    private var counter = 0 {
+        didSet {
+            if counter < 60 {
+                timerLabel.stringValue = "\(counter)" + " sec"
+            } else {
+                timerLabel.stringValue = "\(counter / 60):" + "\(counter % 60)"
+            }
+        }
+    }
+
+    private var imageScale: Float = 100 {
+        didSet {
+            self.imageScaleLabel.stringValue = String(imageScale.rounded()) + "%"
+        }
+    }
+
+    @IBOutlet var statusLabel: NSTextField!
 
     override func viewDidAppear() {
-        self.view.window?.styleMask.remove(NSWindowStyleMask.resizable)
+        view.window?.styleMask.remove(NSWindow.StyleMask.resizable)
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         windowSelectorView.removeAllItems()
         windowSelectorView.action = #selector(windowSelected(_:))
         getWindows()
         windowSelectorView.setTitle("Select window")
-        self.imageView.image = NSImage(cgImage: CGDisplayCreateImage(CGMainDisplayID())!, size: imageView.frame.size)
+        imageView.image = NSImage(cgImage: CGDisplayCreateImage(CGMainDisplayID())!, size: imageView.frame.size)
     }
 
     @IBAction func qualityChanged(_ sender: NSSlider) {
-        self.imageQuality = sender.floatValue
+        imageQuality = sender.floatValue
     }
 
     @IBAction func scaleChanged(_ sender: NSSlider) {
-        self.imageScale = sender.floatValue
+        imageScale = sender.floatValue
     }
 
-    func windowSelected(_ sender: NSPopUpButton) {
+    @objc func windowSelected(_: NSPopUpButton) {
         let image = CGWindowListCreateImage(CGRect.null, CGWindowListOption.optionIncludingWindow, windowDict[windowSelectorView.titleOfSelectedItem!]!, CGWindowImageOption.boundsIgnoreFraming)
-        self.imageView.image = NSImage(cgImage: image!, size: self.imageView.frame.size)
-        self.windowSelectorView.setTitle(windowSelectorView.titleOfSelectedItem!)
-        self.selectedWindowId = windowDict[windowSelectorView.titleOfSelectedItem!]!
+        imageView.image = NSImage(cgImage: image!, size: imageView.frame.size)
+        windowSelectorView.setTitle(windowSelectorView.titleOfSelectedItem!)
+        selectedWindowId = windowDict[windowSelectorView.titleOfSelectedItem!]!
     }
+
     func getWindows() {
         windowDict.removeAll()
         windowSelectorView.removeAllItems()
-        if let windows = CGWindowListCopyWindowInfo(CGWindowListOption.optionOnScreenAboveWindow, kCGNullWindowID) as? [[String: Any]] {
-            for window in windows {
-                windowDict[(window["kCGWindowOwnerName"] as? String)!] = window["kCGWindowNumber"] as? UInt32
-                windowSelectorView.addItem(withTitle: (window["kCGWindowOwnerName"] as? String)!)
-            }
+        guard let windows = CGWindowListCopyWindowInfo(CGWindowListOption.optionOnScreenAboveWindow, kCGNullWindowID) as? [[String: Any]] else {
+            return
+        }
+        for window in windows {
+            windowDict[(window["kCGWindowOwnerName"] as? String)!] = window["kCGWindowNumber"] as? UInt32
+            windowSelectorView.addItem(withTitle: (window["kCGWindowOwnerName"] as? String)!)
         }
     }
 
-
-    @IBAction func refreshWindows(_ sender: NSButton) {
+    @IBAction func refreshWindows(_: NSButton) {
         getWindows()
         if windowSelectorView.selectedItem == nil {
             return
         }
         let windowId = windowDict[windowSelectorView.titleOfSelectedItem!]
         let image = CGWindowListCreateImage(CGRect.null, CGWindowListOption.optionIncludingWindow, windowId!, CGWindowImageOption.boundsIgnoreFraming)
-        self.imageView.image = NSImage(cgImage: image!, size: self.imageView.frame.size)
+        imageView.image = NSImage(cgImage: image!, size: imageView.frame.size)
     }
 
-    @IBAction func chooseDirectoryButtonPressed(_ sender: NSButton) {
+    @IBAction func chooseDirectoryButtonPressed(_: NSButton) {
         let myPanel: NSOpenPanel = NSOpenPanel()
         myPanel.allowsMultipleSelection = false
         myPanel.canChooseDirectories = true
         myPanel.canChooseFiles = false
         myPanel.runModal()
-        self.path = myPanel.urls[0] as NSURL
+        path = myPanel.urls[0] as NSURL
     }
 
     @IBAction func recordButtonPressed(_ sender: NSButton) {
-        //Checking if window is selected
-        if self.selectedWindowId == nil {
+        // Checking if window is selected
+        if selectedWindowId == nil {
             let alert = NSAlert()
             alert.addButton(withTitle: "OK")
             alert.informativeText = "You need to select the window"
@@ -135,15 +146,16 @@ class ViewController: NSViewController {
             isRecording = true
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
             startCapturing()
-
         }
     }
+
     @objc private func timerAction() {
         counter += 1
     }
+
     private func startCapturing() {
         // Checking fps
-        var fps = Float(self.fpsTextField.stringValue) ?? 10
+        var fps = Float(fpsTextField.stringValue) ?? 10
         if fps == 0 {
             let alert = NSAlert()
             alert.addButton(withTitle: "OK")
@@ -152,43 +164,37 @@ class ViewController: NSViewController {
             alert.runModal()
             return
         }
-        if fps > 30 {
-            fps = 30
-        }
+        fps = fps > 30 ? 30 : fps
         // Changing label and image status
-        self.statusLabel.stringValue = "Recording"
-        self.statusImageView.image = NSImage(named: "NSStatusUnavailable")
+        statusLabel.stringValue = "Recording"
+        statusImageView.image = NSImage(named: NSImage.Name(rawValue: "NSStatusUnavailable"))
         var name = nameTextField.stringValue
-        if (name.isEmpty) {
+        if name.isEmpty {
             name = "gif"
         }
-        let pathLocal = NSURL(string: self.path.absoluteString! + name + ".gif")!
-        gifMaker = GifMaker(quality: self.imageQuality, scale: self.imageScale, fps: fps, path: pathLocal)
+        let pathLocal = NSURL(string: path.absoluteString! + name + ".gif")!
+        gifMaker = GifMaker(quality: imageQuality, scale: imageScale, fps: fps, path: pathLocal)
         capturingTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(1 / fps), repeats: true, block: {
-            timer in
+            _ in
             guard let image = CGWindowListCreateImage(CGRect.null, CGWindowListOption.optionIncludingWindow, self.selectedWindowId, CGWindowImageOption.boundsIgnoreFraming) else {
                 return
             }
             self.gifMaker.addImageIntoGif(image: image)
             self.imageView.image = NSImage(cgImage: image, size: NSSize(width: self.imageView.frame.width, height: self.imageView.frame.height))
         })
-        }
-
-        private func stopCapturing() {
-            self.statusLabel.stringValue = "Ready"
-            self.statusImageView.image = NSImage(named: "NSStatusAvailable")
-            capturingTimer.invalidate()
-            gifMaker.generateGif(success: { success in
-                if success {
-                    print("Done")
-                } else {
-                    print("Fail")
-                }
-            })
-            gifMaker = nil
-        }
-
-
-
     }
 
+    private func stopCapturing() {
+        statusLabel.stringValue = "Ready"
+        statusImageView.image = NSImage(named: NSImage.Name(rawValue: "NSStatusAvailable"))
+        capturingTimer.invalidate()
+        gifMaker.generateGif(success: { success in
+            if success {
+                print("Done")
+            } else {
+                print("Fail")
+            }
+        })
+        gifMaker = nil
+    }
+}
