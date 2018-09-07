@@ -14,9 +14,29 @@
 		74DF24A91EBF761E002DFF53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DF24A81EBF761E002DFF53 /* ViewController.swift */; };
 		74DF24AB1EBF761F002DFF53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74DF24AA1EBF761F002DFF53 /* Assets.xcassets */; };
 		74DF24AE1EBF761F002DFF53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74DF24AC1EBF761F002DFF53 /* Main.storyboard */; };
+		74E4FC44211228DD00A425DC /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E4FC43211228DD00A425DC /* WindowManager.swift */; };
+		74E4FC5A21122BA500A425DC /* GifRecorderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E4FC5921122BA500A425DC /* GifRecorderTests.swift */; };
+		74E4FC6221122BC100A425DC /* WindowManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E4FC6121122BC100A425DC /* WindowManagerTests.swift */; };
 		74FF75951EC2097B008D3D01 /* GifMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FF75941EC2097B008D3D01 /* GifMaker.swift */; };
 		74FF75971EC388C4008D3D01 /* CompressionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FF75961EC388C4008D3D01 /* CompressionExtension.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		74E4FC4E21122B8500A425DC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 74DF249B1EBF761E002DFF53 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 74DF24A21EBF761E002DFF53;
+			remoteInfo = Wind;
+		};
+		74E4FC5C21122BA500A425DC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 74DF249B1EBF761E002DFF53 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 74DF24A21EBF761E002DFF53;
+			remoteInfo = Wind;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		7415DEEF2047C52900CF9AE1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -28,12 +48,32 @@
 		74DF24AA1EBF761F002DFF53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74DF24AD1EBF761F002DFF53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		74DF24AF1EBF761F002DFF53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		74E4FC43211228DD00A425DC /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
+		74E4FC4921122B8500A425DC /* WindTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WindTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		74E4FC5721122BA500A425DC /* GifRecorderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GifRecorderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		74E4FC5921122BA500A425DC /* GifRecorderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifRecorderTests.swift; sourceTree = "<group>"; };
+		74E4FC5B21122BA500A425DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		74E4FC6121122BC100A425DC /* WindowManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManagerTests.swift; sourceTree = "<group>"; };
 		74FF75941EC2097B008D3D01 /* GifMaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifMaker.swift; sourceTree = "<group>"; };
 		74FF75961EC388C4008D3D01 /* CompressionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompressionExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		74DF24A01EBF761E002DFF53 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		74E4FC4621122B8500A425DC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		74E4FC5421122BA500A425DC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -49,6 +89,7 @@
 				7415DEEF2047C52900CF9AE1 /* .gitignore */,
 				7422726E204725E9005F9C50 /* README.md */,
 				74DF24A51EBF761E002DFF53 /* Wind */,
+				74E4FC5821122BA500A425DC /* GifRecorderTests */,
 				74DF24A41EBF761E002DFF53 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,6 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				74DF24A31EBF761E002DFF53 /* Wind.app */,
+				74E4FC4921122B8500A425DC /* WindTests.xctest */,
+				74E4FC5721122BA500A425DC /* GifRecorderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -69,11 +112,22 @@
 				74FF75941EC2097B008D3D01 /* GifMaker.swift */,
 				749916B120542E3200C9DF34 /* GifProcessingOperation.swift */,
 				74FF75961EC388C4008D3D01 /* CompressionExtension.swift */,
+				74E4FC43211228DD00A425DC /* WindowManager.swift */,
 				74DF24AA1EBF761F002DFF53 /* Assets.xcassets */,
 				74DF24AC1EBF761F002DFF53 /* Main.storyboard */,
 				74DF24AF1EBF761F002DFF53 /* Info.plist */,
 			);
 			path = Wind;
+			sourceTree = "<group>";
+		};
+		74E4FC5821122BA500A425DC /* GifRecorderTests */ = {
+			isa = PBXGroup;
+			children = (
+				74E4FC5921122BA500A425DC /* GifRecorderTests.swift */,
+				74E4FC5B21122BA500A425DC /* Info.plist */,
+				74E4FC6121122BC100A425DC /* WindowManagerTests.swift */,
+			);
+			path = GifRecorderTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -98,13 +152,49 @@
 			productReference = 74DF24A31EBF761E002DFF53 /* Wind.app */;
 			productType = "com.apple.product-type.application";
 		};
+		74E4FC4821122B8500A425DC /* WindTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 74E4FC5021122B8500A425DC /* Build configuration list for PBXNativeTarget "WindTests" */;
+			buildPhases = (
+				74E4FC4521122B8500A425DC /* Sources */,
+				74E4FC4621122B8500A425DC /* Frameworks */,
+				74E4FC4721122B8500A425DC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				74E4FC4F21122B8500A425DC /* PBXTargetDependency */,
+			);
+			name = WindTests;
+			productName = WindTests;
+			productReference = 74E4FC4921122B8500A425DC /* WindTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		74E4FC5621122BA500A425DC /* GifRecorderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 74E4FC5E21122BA500A425DC /* Build configuration list for PBXNativeTarget "GifRecorderTests" */;
+			buildPhases = (
+				74E4FC5321122BA500A425DC /* Sources */,
+				74E4FC5421122BA500A425DC /* Frameworks */,
+				74E4FC5521122BA500A425DC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				74E4FC5D21122BA500A425DC /* PBXTargetDependency */,
+			);
+			name = GifRecorderTests;
+			productName = GifRecorderTests;
+			productReference = 74E4FC5721122BA500A425DC /* GifRecorderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		74DF249B1EBF761E002DFF53 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Yegor's Mac";
 				TargetAttributes = {
@@ -113,6 +203,18 @@
 						DevelopmentTeam = N2BKJ2AF66;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
+					};
+					74E4FC4821122B8500A425DC = {
+						CreatedOnToolsVersion = 9.3;
+						DevelopmentTeam = N2BKJ2AF66;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 74DF24A21EBF761E002DFF53;
+					};
+					74E4FC5621122BA500A425DC = {
+						CreatedOnToolsVersion = 9.3;
+						DevelopmentTeam = N2BKJ2AF66;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 74DF24A21EBF761E002DFF53;
 					};
 				};
 			};
@@ -130,6 +232,8 @@
 			projectRoot = "";
 			targets = (
 				74DF24A21EBF761E002DFF53 /* Wind */,
+				74E4FC4821122B8500A425DC /* WindTests */,
+				74E4FC5621122BA500A425DC /* GifRecorderTests */,
 			);
 		};
 /* End PBXProject section */
@@ -143,6 +247,20 @@
 				7422726F204725E9005F9C50 /* README.md in Resources */,
 				74DF24AB1EBF761F002DFF53 /* Assets.xcassets in Resources */,
 				74DF24AE1EBF761F002DFF53 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		74E4FC4721122B8500A425DC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		74E4FC5521122BA500A425DC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,10 +305,40 @@
 				74DF24A91EBF761E002DFF53 /* ViewController.swift in Sources */,
 				74FF75951EC2097B008D3D01 /* GifMaker.swift in Sources */,
 				74DF24A71EBF761E002DFF53 /* AppDelegate.swift in Sources */,
+				74E4FC44211228DD00A425DC /* WindowManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		74E4FC4521122B8500A425DC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		74E4FC5321122BA500A425DC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				74E4FC5A21122BA500A425DC /* GifRecorderTests.swift in Sources */,
+				74E4FC6221122BC100A425DC /* WindowManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		74E4FC4F21122B8500A425DC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 74DF24A21EBF761E002DFF53 /* Wind */;
+			targetProxy = 74E4FC4E21122B8500A425DC /* PBXContainerItemProxy */;
+		};
+		74E4FC5D21122BA500A425DC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 74DF24A21EBF761E002DFF53 /* Wind */;
+			targetProxy = 74E4FC5C21122BA500A425DC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		74DF24AC1EBF761F002DFF53 /* Main.storyboard */ = {
@@ -326,6 +474,126 @@
 			};
 			name = Release;
 		};
+		74E4FC5121122B8500A425DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = N2BKJ2AF66;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = WindTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = yegorsMac.WindTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wind.app/Contents/MacOS/Wind";
+			};
+			name = Debug;
+		};
+		74E4FC5221122B8500A425DC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = N2BKJ2AF66;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = WindTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = yegorsMac.WindTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wind.app/Contents/MacOS/Wind";
+			};
+			name = Release;
+		};
+		74E4FC5F21122BA500A425DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = N2BKJ2AF66;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = GifRecorderTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = yegorsMac.GifRecorderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wind.app/Contents/MacOS/Wind";
+			};
+			name = Debug;
+		};
+		74E4FC6021122BA500A425DC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = N2BKJ2AF66;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = GifRecorderTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = yegorsMac.GifRecorderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wind.app/Contents/MacOS/Wind";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -343,6 +611,24 @@
 			buildConfigurations = (
 				74DF24B31EBF761F002DFF53 /* Debug */,
 				74DF24B41EBF761F002DFF53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		74E4FC5021122B8500A425DC /* Build configuration list for PBXNativeTarget "WindTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				74E4FC5121122B8500A425DC /* Debug */,
+				74E4FC5221122B8500A425DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		74E4FC5E21122BA500A425DC /* Build configuration list for PBXNativeTarget "GifRecorderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				74E4FC5F21122BA500A425DC /* Debug */,
+				74E4FC6021122BA500A425DC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -21,8 +21,8 @@ class GifMaker {
     private var destinationGIF: CGImageDestination!
     typealias SuccessBlock = (Bool) -> Void
 
-    let fileProperties: CFDictionary!
-    var frameProperties: CFDictionary!
+    let fileProperties: CFDictionary
+    var frameProperties: CFDictionary
 
     init(quality: Float, scale: Float, fps: Float, path: NSURL) {
         self.quality = quality / 100
@@ -48,7 +48,8 @@ class GifMaker {
 
     func addImageIntoGif(image: CGImage) {
         processingQueue.sync {
-            self.images.append(image.resizeImage(level: self.quality, scale: self.scale))
+            let resizedImage: CGImage = image.resizeImage(level: self.quality, scale: self.scale)
+            self.images.append(resizedImage)
         }
     }
 
@@ -57,12 +58,14 @@ class GifMaker {
         CGImageDestinationSetProperties(destinationGIF, fileProperties)
         processingQueue.async(group: dispatchGroup, qos: .background, flags: .enforceQoS, execute: {
             while self.images.count > 0 {
-                CGImageDestinationAddImage(self.destinationGIF, self.images.removeFirst(), self.frameProperties)
+                CGImageDestinationAddImage(self.destinationGIF, self.images.popLast()!, self.frameProperties)
             }
         })
         dispatchGroup.notify(queue: processingQueue, execute: {
             success(CGImageDestinationFinalize(self.destinationGIF))
             self.destinationGIF = nil
+            self.images = nil
         })
+        GifProcessingOperation().main()
     }
 }

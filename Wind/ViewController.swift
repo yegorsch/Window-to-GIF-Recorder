@@ -18,6 +18,7 @@ class ViewController: NSViewController {
     @IBOutlet var nameTextField: NSTextField!
     @IBOutlet var fpsTextField: NSTextField!
     @IBOutlet var imageScaleLabel: NSTextField!
+    @IBOutlet var statusLabel: NSTextField!
 
     private var windowDict = [String: UInt32]()
     private var isRecording: Bool = false
@@ -63,8 +64,6 @@ class ViewController: NSViewController {
         }
     }
 
-    @IBOutlet var statusLabel: NSTextField!
-
     override func viewDidAppear() {
         view.window?.styleMask.remove(NSWindow.StyleMask.resizable)
     }
@@ -73,7 +72,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         windowSelectorView.removeAllItems()
         windowSelectorView.action = #selector(windowSelected(_:))
-        getWindows()
+        updateWindows()
         windowSelectorView.setTitle("Select window")
         imageView.image = NSImage(cgImage: CGDisplayCreateImage(CGMainDisplayID())!, size: imageView.frame.size)
     }
@@ -86,33 +85,34 @@ class ViewController: NSViewController {
         imageScale = sender.floatValue
     }
 
-    @objc func windowSelected(_: NSPopUpButton) {
-        let image = CGWindowListCreateImage(CGRect.null, CGWindowListOption.optionIncludingWindow, windowDict[windowSelectorView.titleOfSelectedItem!]!, CGWindowImageOption.boundsIgnoreFraming)
-        imageView.image = NSImage(cgImage: image!, size: imageView.frame.size)
+    @objc private func windowSelected(_: NSPopUpButton) {
+        updateSelectedWindowImageView()
         windowSelectorView.setTitle(windowSelectorView.titleOfSelectedItem!)
         selectedWindowId = windowDict[windowSelectorView.titleOfSelectedItem!]!
     }
 
-    func getWindows() {
+    func updateWindows() {
         windowDict.removeAll()
         windowSelectorView.removeAllItems()
-        guard let windows = CGWindowListCopyWindowInfo(CGWindowListOption.optionOnScreenAboveWindow, kCGNullWindowID) as? [[String: Any]] else {
-            return
-        }
-        for window in windows {
-            windowDict[(window["kCGWindowOwnerName"] as? String)!] = window["kCGWindowNumber"] as? UInt32
-            windowSelectorView.addItem(withTitle: (window["kCGWindowOwnerName"] as? String)!)
+        windowDict = WindowManager.windows()
+        windowDict.forEach { key, _ in
+            self.windowSelectorView.addItem(withTitle: key)
         }
     }
 
     @IBAction func refreshWindows(_: NSButton) {
-        getWindows()
-        if windowSelectorView.selectedItem == nil {
+        updateWindows()
+        updateSelectedWindowImageView()
+    }
+
+    private func updateSelectedWindowImageView() {
+        guard windowSelectorView.selectedItem != nil,
+            let windowId = windowDict[windowSelectorView.titleOfSelectedItem!],
+            let image = WindowManager.imageForWindowWith(windowId: windowId, size: imageView.frame.size)
+        else {
             return
         }
-        let windowId = windowDict[windowSelectorView.titleOfSelectedItem!]
-        let image = CGWindowListCreateImage(CGRect.null, CGWindowListOption.optionIncludingWindow, windowId!, CGWindowImageOption.boundsIgnoreFraming)
-        imageView.image = NSImage(cgImage: image!, size: imageView.frame.size)
+        imageView.image = image
     }
 
     @IBAction func chooseDirectoryButtonPressed(_: NSButton) {
@@ -156,7 +156,7 @@ class ViewController: NSViewController {
     private func startCapturing() {
         // Checking fps
         var fps = Float(fpsTextField.stringValue) ?? 10
-        if fps == 0 {
+        if fps <= 0 {
             let alert = NSAlert()
             alert.addButton(withTitle: "OK")
             alert.informativeText = "FPS value is invalid"
