@@ -10,9 +10,9 @@ import AppKit
 import Foundation
 
 final class WindowManager {
-    static func windows() -> [String: UInt32] {
+    static func windows() -> [String: UInt32]? {
         guard let windows = CGWindowListCopyWindowInfo(CGWindowListOption.optionOnScreenAboveWindow, kCGNullWindowID) as? [[String: Any]] else {
-            return [String: UInt32]()
+            return nil
         }
         var windowsDict = [String: UInt32]()
         for window in windows {

@@ -19,6 +19,8 @@ class GifMaker {
     private var processingQueue: DispatchQueue!
     private var dispatchGroup: DispatchGroup!
     private var destinationGIF: CGImageDestination!
+    private var success = false
+    private var initTime = Date()
     typealias SuccessBlock = (Bool) -> Void
 
     let fileProperties: CFDictionary
@@ -48,24 +50,28 @@ class GifMaker {
 
     func addImageIntoGif(image: CGImage) {
         processingQueue.sync {
-            let resizedImage: CGImage = image.resizeImage(level: self.quality, scale: self.scale)
-            self.images.append(resizedImage)
+            self.images.append(image)
         }
     }
 
     func generateGif(success: @escaping SuccessBlock) {
+        // Creating GIF with properties
         destinationGIF = CGImageDestinationCreateWithURL(path, kUTTypeGIF, images.count, nil)
         CGImageDestinationSetProperties(destinationGIF, fileProperties)
         processingQueue.async(group: dispatchGroup, qos: .background, flags: .enforceQoS, execute: {
+            self.images.reverse()
             while self.images.count > 0 {
-                CGImageDestinationAddImage(self.destinationGIF, self.images.popLast()!, self.frameProperties)
+                let image = self.images.popLast()!
+                let resizedImage = image.resizeImage(level: self.quality, scale: self.scale)
+                CGImageDestinationAddImage(self.destinationGIF, image, self.frameProperties)
             }
+            let dada = Date()
+            self.success = CGImageDestinationFinalize(self.destinationGIF)
+            print("\(dada.timeIntervalSinceNow * -1) seconds elapsed")
         })
         dispatchGroup.notify(queue: processingQueue, execute: {
-            success(CGImageDestinationFinalize(self.destinationGIF))
-            self.destinationGIF = nil
-            self.images = nil
+            success(self.success)
+            print("\(self.initTime.timeIntervalSinceNow * -1) seconds elapsed")
         })
-        GifProcessingOperation().main()
     }
 }

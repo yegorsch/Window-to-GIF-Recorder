@@ -85,45 +85,6 @@ class ViewController: NSViewController {
         imageScale = sender.floatValue
     }
 
-    @objc private func windowSelected(_: NSPopUpButton) {
-        updateSelectedWindowImageView()
-        windowSelectorView.setTitle(windowSelectorView.titleOfSelectedItem!)
-        selectedWindowId = windowDict[windowSelectorView.titleOfSelectedItem!]!
-    }
-
-    func updateWindows() {
-        windowDict.removeAll()
-        windowSelectorView.removeAllItems()
-        windowDict = WindowManager.windows()
-        windowDict.forEach { key, _ in
-            self.windowSelectorView.addItem(withTitle: key)
-        }
-    }
-
-    @IBAction func refreshWindows(_: NSButton) {
-        updateWindows()
-        updateSelectedWindowImageView()
-    }
-
-    private func updateSelectedWindowImageView() {
-        guard windowSelectorView.selectedItem != nil,
-            let windowId = windowDict[windowSelectorView.titleOfSelectedItem!],
-            let image = WindowManager.imageForWindowWith(windowId: windowId, size: imageView.frame.size)
-        else {
-            return
-        }
-        imageView.image = image
-    }
-
-    @IBAction func chooseDirectoryButtonPressed(_: NSButton) {
-        let myPanel: NSOpenPanel = NSOpenPanel()
-        myPanel.allowsMultipleSelection = false
-        myPanel.canChooseDirectories = true
-        myPanel.canChooseFiles = false
-        myPanel.runModal()
-        path = myPanel.urls[0] as NSURL
-    }
-
     @IBAction func recordButtonPressed(_ sender: NSButton) {
         // Checking if window is selected
         if selectedWindowId == nil {
@@ -147,6 +108,46 @@ class ViewController: NSViewController {
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
             startCapturing()
         }
+    }
+
+    @IBAction func chooseDirectoryButtonPressed(_: NSButton) {
+        let myPanel: NSOpenPanel = NSOpenPanel()
+        myPanel.allowsMultipleSelection = false
+        myPanel.canChooseDirectories = true
+        myPanel.canChooseFiles = false
+        myPanel.runModal()
+        path = myPanel.urls[0] as NSURL
+    }
+
+    @IBAction func refreshWindows(_: NSButton) {
+        updateWindows()
+        updateSelectedWindowImageView()
+    }
+
+    @objc private func windowSelected(_: NSPopUpButton) {
+        updateSelectedWindowImageView()
+        windowSelectorView.setTitle(windowSelectorView.titleOfSelectedItem!)
+        selectedWindowId = windowDict[windowSelectorView.titleOfSelectedItem!]!
+    }
+
+    func updateWindows() {
+        guard let newWindows = WindowManager.windows() else { return }
+        windowDict.removeAll()
+        windowSelectorView.removeAllItems()
+        newWindows.forEach { key, value in
+            windowDict[key] = value
+            self.windowSelectorView.addItem(withTitle: key)
+        }
+    }
+
+    private func updateSelectedWindowImageView() {
+        guard windowSelectorView.selectedItem != nil,
+            let windowId = windowDict[windowSelectorView.titleOfSelectedItem!],
+            let image = WindowManager.imageForWindowWith(windowId: windowId, size: imageView.frame.size)
+        else {
+            return
+        }
+        imageView.image = image
     }
 
     @objc private func timerAction() {
