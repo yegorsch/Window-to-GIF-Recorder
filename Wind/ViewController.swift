@@ -156,8 +156,6 @@ class ViewController: NSViewController {
     }
 
     private func startCapturing() {
-        //
-        gifMaker = nil
         // Checking fps
         var fps = Float(fpsTextField.stringValue) ?? 10
         if fps <= 0 {
@@ -168,7 +166,7 @@ class ViewController: NSViewController {
             alert.runModal()
             return
         }
-        fps = fps > 30 ? 30 : fps
+        fps = fps > 30 ? 30 : fps // sorry
         // Changing label and image status
         statusLabel.stringValue = "Recording"
         statusImageView.image = NSImage(named: NSImage.Name(rawValue: "NSStatusUnavailable"))
@@ -197,11 +195,7 @@ class ViewController: NSViewController {
             self.progressBar.doubleValue = percent
         },
         success: { success in
-            if success {
-                print("Done")
-            } else {
-                print("Fail")
-            }
+            success ? print("Done") : print("Fail")
             self.progressBar.doubleValue = 0.0
         })
         gifMaker = nil
