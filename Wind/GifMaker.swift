@@ -22,6 +22,7 @@ class GifMaker {
     private var success = false
     private var initTime = Date()
     typealias SuccessBlock = (Bool) -> Void
+    typealias ProgressPercentBlock = (Double) -> Void
 
     let fileProperties: CFDictionary
     var frameProperties: CFDictionary
@@ -50,28 +51,31 @@ class GifMaker {
 
     func addImageIntoGif(image: CGImage) {
         processingQueue.sync {
-            self.images.append(image)
+            let resizedImage = image.resizeImage(level: self.quality, scale: self.scale)
+            images.append(resizedImage)
         }
     }
 
-    func generateGif(success: @escaping SuccessBlock) {
+    func generateGif(progress: @escaping ProgressPercentBlock, success: @escaping SuccessBlock) {
         // Creating GIF with properties
         destinationGIF = CGImageDestinationCreateWithURL(path, kUTTypeGIF, images.count, nil)
         CGImageDestinationSetProperties(destinationGIF, fileProperties)
-        processingQueue.async(group: dispatchGroup, qos: .background, flags: .enforceQoS, execute: {
+        processingQueue.async(group: dispatchGroup, qos: .background, flags: .enforceQoS, execute: { [weak self] in
+            guard let self = self else { return }
             self.images.reverse()
+            let initialNumberOfImages = Double(self.images.count)
             while self.images.count > 0 {
                 let image = self.images.popLast()!
-                let resizedImage = image.resizeImage(level: self.quality, scale: self.scale)
+                let percent: Double = 1 - Double(self.images.count) / initialNumberOfImages
+                DispatchQueue.main.async {
+                    progress(percent * 100.0)
+                }
                 CGImageDestinationAddImage(self.destinationGIF, image, self.frameProperties)
             }
-            let dada = Date()
             self.success = CGImageDestinationFinalize(self.destinationGIF)
-            print("\(dada.timeIntervalSinceNow * -1) seconds elapsed")
         })
-        dispatchGroup.notify(queue: processingQueue, execute: {
+        dispatchGroup.notify(queue: DispatchQueue.main, execute: {
             success(self.success)
-            print("\(self.initTime.timeIntervalSinceNow * -1) seconds elapsed")
         })
     }
 }

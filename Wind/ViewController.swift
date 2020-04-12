@@ -19,6 +19,7 @@ class ViewController: NSViewController {
     @IBOutlet var fpsTextField: NSTextField!
     @IBOutlet var imageScaleLabel: NSTextField!
     @IBOutlet var statusLabel: NSTextField!
+    @IBOutlet var progressBar: NSProgressIndicator!
 
     private var windowDict = [String: UInt32]()
     private var isRecording: Bool = false
@@ -155,6 +156,8 @@ class ViewController: NSViewController {
     }
 
     private func startCapturing() {
+        //
+        gifMaker = nil
         // Checking fps
         var fps = Float(fpsTextField.stringValue) ?? 10
         if fps <= 0 {
@@ -169,6 +172,7 @@ class ViewController: NSViewController {
         // Changing label and image status
         statusLabel.stringValue = "Recording"
         statusImageView.image = NSImage(named: NSImage.Name(rawValue: "NSStatusUnavailable"))
+        progressBar.doubleValue = 0.0
         var name = nameTextField.stringValue
         if name.isEmpty {
             name = "gif"
@@ -189,12 +193,16 @@ class ViewController: NSViewController {
         statusLabel.stringValue = "Ready"
         statusImageView.image = NSImage(named: NSImage.Name(rawValue: "NSStatusAvailable"))
         capturingTimer.invalidate()
-        gifMaker.generateGif(success: { success in
+        gifMaker.generateGif(progress: { percent in
+            self.progressBar.doubleValue = percent
+        },
+        success: { success in
             if success {
                 print("Done")
             } else {
                 print("Fail")
             }
+            self.progressBar.doubleValue = 0.0
         })
         gifMaker = nil
     }
